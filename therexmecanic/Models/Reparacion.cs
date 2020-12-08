@@ -7,6 +7,7 @@ namespace therexmecanic.Models
 {
     public class Reparacion
     {
+        public int IdReparacion { get; set; }
         public int Fecha_Ingreso { get; set; }
         public int Hora_Ingreso { get; set; }
         public string Motivo_Ingreso { get; set; }

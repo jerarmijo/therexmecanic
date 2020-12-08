@@ -7,7 +7,7 @@ namespace therexmecanic.Models
 {
     public class Vehiculo
     {
-        public Cliente cliente { get; set; }
+        public Cliente CodCliente { get; set; }
         public string Patente { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
