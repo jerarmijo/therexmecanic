@@ -29,20 +29,78 @@ namespace therexmecanic.Azure
             
         }
 
-        public static int AgregarCliente(Cliente cliente)
+        public static int AgregarClienteInstancia(Cliente cliente)
         {
             int FilasAfectadas = 0;
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
-                sqlCommand.CommandText = "insert into Cliente (Nombre,Apellido,Edad,Email,Domicilio,Telefono) values (@Nombre,@Edad,@Email,@Domicilio,@Telefono)";
+                sqlCommand.CommandText = "insert into Cliente (Nombre,Apellido,Edad,Email,Domicilio,Telefono) values (@Nombre,@Apellido,@Edad,@Email,@Domicilio,@Telefono)";
                 sqlCommand.Parameters.AddWithValue("@Nombre", cliente.Nombre);
                 sqlCommand.Parameters.AddWithValue("@Apellido", cliente.Apellido);
                 sqlCommand.Parameters.AddWithValue("@Edad", cliente.Edad);
                 sqlCommand.Parameters.AddWithValue("@Email", cliente.Email);
                 sqlCommand.Parameters.AddWithValue("@Domicilio", cliente.Domicilio);
                 sqlCommand.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+
+                try
+                {
+                    sqlConnection.Open();
+                    FilasAfectadas = sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+
+                return FilasAfectadas;
+            }
+        }
+
+        public static int AgregarClienteParametro(string Nombre, string Apellido, int Edad, string Email, string Domicilio, int Telefono)
+        {
+            int FilasAfectadas = 0;
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
+                sqlCommand.CommandText = "insert into Cliente (Nombre,Apellido,Edad,Email,Domicilio,Telefono) values (@Nombre,@Apellido,@Edad,@Email,@Domicilio,@Telefono)";
+                sqlCommand.Parameters.AddWithValue("@Nombre", Nombre);
+                sqlCommand.Parameters.AddWithValue("@Apellido", Apellido);
+                sqlCommand.Parameters.AddWithValue("@Edad", Edad);
+                sqlCommand.Parameters.AddWithValue("@Email", Email);
+                sqlCommand.Parameters.AddWithValue("@Domicilio", Domicilio);
+                sqlCommand.Parameters.AddWithValue("@Telefono", Telefono);
+
+                try
+                {
+                    sqlConnection.Open();
+                    FilasAfectadas = sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+
+                return FilasAfectadas;
+            }
+        }
+
+        public static int EliminarClientePorID(int codCliente)
+        {
+            int FilasAfectadas = 0;
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
+                sqlCommand.CommandText = "delete from Cliente where CodCliente = @CodCliente";
+                sqlCommand.Parameters.AddWithValue("@CodCliente", codCliente);
+
 
                 try
                 {
