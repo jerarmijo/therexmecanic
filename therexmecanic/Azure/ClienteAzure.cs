@@ -29,6 +29,37 @@ namespace therexmecanic.Azure
             
         }
 
+        public static int AgregarCliente(Cliente cliente)
+        {
+            int FilasAfectadas = 0;
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
+                sqlCommand.CommandText = "insert into Cliente (Nombre,Apellido,Edad,Email,Domicilio,Telefono) values (@Nombre,@Edad,@Email,@Domicilio,@Telefono)";
+                sqlCommand.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                sqlCommand.Parameters.AddWithValue("@Apellido", cliente.Apellido);
+                sqlCommand.Parameters.AddWithValue("@Edad", cliente.Edad);
+                sqlCommand.Parameters.AddWithValue("@Email", cliente.Email);
+                sqlCommand.Parameters.AddWithValue("@Domicilio", cliente.Domicilio);
+                sqlCommand.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+
+                try
+                {
+                    sqlConnection.Open();
+                    FilasAfectadas = sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+
+                return FilasAfectadas;
+            }
+        }
+
         public static SqlCommand AbrirConexionSqlClientes(SqlConnection sqlConnection)
         {
             SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
