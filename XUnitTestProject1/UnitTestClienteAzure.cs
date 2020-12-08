@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using System.Linq;
-
+using therexmecanic.Azure;
 
 namespace XUnitTestProject1
 {
@@ -14,10 +14,12 @@ namespace XUnitTestProject1
         {
             //arrange
             bool vieneConDatos = false;
+            
             //act
-            ClienteAzure.
+            var clienteRetornados = ClienteAzure.ObtenerClientes();
+            vieneConDatos = clienteRetornados.Any();
             //assert
-
+            Assert.True(vieneConDatos);
         }
 
     }

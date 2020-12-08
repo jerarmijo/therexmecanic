@@ -33,7 +33,7 @@ namespace therexmecanic.Azure
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     Cliente cliente = new Cliente();
-                    cliente.CodRegistro = int.Parse(dataTable.Rows[i]["codRegistro"].ToString());
+                    cliente.CodCliente = int.Parse(dataTable.Rows[i]["codCliente"].ToString());
                     cliente.Nombre = dataTable.Rows[i]["Nombre"].ToString();
                     cliente.Apellido = dataTable.Rows[i]["Apellido"].ToString();
                     cliente.Edad = int.Parse(dataTable.Rows[i]["Edad"].ToString());

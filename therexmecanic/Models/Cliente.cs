@@ -7,7 +7,7 @@ namespace therexmecanic.Models
 {
     public class Cliente
     {
-        public int CodRegistro { get; set; }
+        public int CodCliente { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public int Edad { get; set; }
