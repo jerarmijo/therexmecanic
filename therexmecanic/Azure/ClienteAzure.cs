@@ -91,15 +91,15 @@ namespace therexmecanic.Azure
             }
         }
 
-        public static int EliminarClientePorID(int codCliente)
+        public static int EliminarClientePorNombre(string Nombre)
         {
             int FilasAfectadas = 0;
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
-                sqlCommand.CommandText = "delete from Cliente where CodCliente = @CodCliente";
-                sqlCommand.Parameters.AddWithValue("@CodCliente", codCliente);
+                sqlCommand.CommandText = "delete from Cliente where Nombre = @Nombre";
+                sqlCommand.Parameters.AddWithValue("@Nombre", Nombre);
 
 
                 try

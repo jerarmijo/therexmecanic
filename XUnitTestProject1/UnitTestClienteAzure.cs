@@ -41,6 +41,7 @@ namespace XUnitTestProject1
 
             //act
             resultadoObtenido = ClienteAzure.AgregarClienteInstancia(cliente);
+            ClienteAzure.EliminarClientePorNombre(cliente.Nombre);
 
             //assert
             Assert.Equal(resultadoEsperado, resultadoObtenido);
@@ -65,25 +66,36 @@ namespace XUnitTestProject1
 
             //act
             resultadoObtenido = ClienteAzure.AgregarClienteParametro(Nombre, Apellido, Edad, Email, Domicilio,Telefono);
-
+            ClienteAzure.EliminarClientePorNombre(Nombre);
             //assert
             Assert.Equal(resultadoEsperado, resultadoObtenido);
 
         }
 
         [Fact]
-        public void TestEliminarClientePorCodigo()
+        public void TestEliminarClientePorNombre()
         {
             //arrange
             Cliente cliente = new Cliente();
+            cliente.Nombre = "asdf";
+            cliente.Apellido = "dsasf";
+            cliente.Edad = 10;
+            cliente.Email = "sadasd@xd.cl";
+            cliente.Domicilio = "uwu de owo #123";
+            cliente.Telefono = 12414564;
             int resultadoEsperado = 1;
-            int ResultadoObtenido = 0;
+            int resultadoObtenido = 0;
+            
 
+            string clienteEliminar = "asdf";
 
+            ClienteAzure.AgregarClienteInstancia(cliente);
 
             //act
+            resultadoObtenido = ClienteAzure.EliminarClientePorNombre(clienteEliminar);
 
             //assert
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
     }
 }
