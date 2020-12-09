@@ -11,8 +11,9 @@ namespace therexmecanic.Azure
     public class ClienteAzure
     {
         //ruta
-        //static string connectionString = @"Server=DESKTOP-A88JHQV\MSSQLSERVER1;Database=DBtherexmecanic;Trusted_Connection=True;"'
-        static string connectionString = "Server=tcp:therexmecanicdb.database.windows.net,1433;Initial Catalog=therexmecanicBD;Persist Security Info=False;User ID=jerkzaen;Password={Tool12!&quot};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //static string connectionString = @"Server=DESKTOP-A88JHQV\MSSQLSERVER1;Database=DBtherexmecanic;Trusted_Connection=True;";
+        static string connectionString = "Server=tcp:bdtherexmecanic.database.windows.net,1433;Initial Catalog=BDtherexmecanic;Persist Security Info=False;User ID=jerk;Password=Tool1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //static string connectionString = "Server=tcp:therexmecanicdb.database.windows.net,1433;Initial Catalog=therexmecanicBD;Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;User ID=jerkzaen;Password={Tool12!&quot;};";
 
         private static List<Cliente> clientes;
         
