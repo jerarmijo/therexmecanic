@@ -123,5 +123,36 @@ namespace XUnitTestProject1
             //assert
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+        
+        [Fact]
+        public void TestActualizarClientePorID()
+        {
+            //arrange
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+
+            Cliente cliente = new Cliente();
+            cliente.CodCliente = 1;
+            cliente.Nombre = "JERSONTEST1";
+            cliente.Apellido = "ARMIJO1";
+            cliente.Edad = 26;
+            cliente.Email = "JERSONARMIJO4@GMAIL.COM";
+            cliente.Domicilio = "AWA DE UWU #2423";
+            cliente.Telefono = 1122334455;
+
+            //act
+            resultadoObtenido = ClienteAzure.ActualizarClientePorID(cliente);
+            cliente.Nombre = "JERSON";
+            cliente.Apellido = "ARMIJO";
+            cliente.Edad = 26;
+            cliente.Email = "JERSONARMIJO4@GMAIL.COM";
+            cliente.Domicilio = "CALLE LOCAL #2423";
+            cliente.Telefono = 12345678;
+            ClienteAzure.ActualizarClientePorID(cliente);
+
+            //assert
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+            
+        }
     }
 }

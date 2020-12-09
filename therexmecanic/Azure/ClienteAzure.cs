@@ -52,26 +52,6 @@ namespace therexmecanic.Azure
             }
         }
 
-        private static Cliente CracionDeCliente(DataTable dataTable)
-        {
-            if (dataTable != null && dataTable.Rows.Count > 0)
-            {
-                Cliente cliente = new Cliente();
-                cliente.CodCliente = int.Parse(dataTable.Rows[0]["CodCliente"].ToString());
-                cliente.Nombre = dataTable.Rows[0]["Nombre"].ToString();
-                cliente.Apellido = dataTable.Rows[0]["Apellido"].ToString();
-                cliente.Edad = int.Parse(dataTable.Rows[0]["Edad"].ToString());
-                cliente.Email = dataTable.Rows[0]["Email"].ToString();
-                cliente.Domicilio = dataTable.Rows[0]["Domicilio"].ToString();
-                cliente.Telefono = int.Parse(dataTable.Rows[0]["Telefono"].ToString());
-                return cliente;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         public static int AgregarClienteInstancia(Cliente cliente)
         {
             int FilasAfectadas = 0;
@@ -161,6 +141,39 @@ namespace therexmecanic.Azure
             }
         }
 
+        public static int ActualizarClientePorID(Cliente cliente)
+        {
+            int filasAfectadas = 0;
+            using(SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(null,sqlConnection);
+                sqlCommand.CommandText = "update Cliente SET Nombre = @Nombre,Apellido = @Apellido, Edad = @Edad, Email = @Email, Domicilio = @Domicilio, Telefono = @Telefono where CodCliente = @CodCliente";
+
+                sqlCommand.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                sqlCommand.Parameters.AddWithValue("@CodCliente", cliente.CodCliente);
+                sqlCommand.Parameters.AddWithValue("@Apellido", cliente.Apellido);
+                sqlCommand.Parameters.AddWithValue("@Edad", cliente.Edad);
+                sqlCommand.Parameters.AddWithValue("@Email", cliente.Email);
+                sqlCommand.Parameters.AddWithValue("@Domicilio", cliente.Domicilio);
+                sqlCommand.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+
+                try
+                {
+                    sqlConnection.Open();
+                    filasAfectadas = sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+                return filasAfectadas;
+            }
+
+                
+        }
+
         public static SqlCommand AbrirConexionSqlClientes(SqlConnection sqlConnection)
         {
             SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
@@ -202,7 +215,27 @@ namespace therexmecanic.Azure
             }
             return clientes;
         }
-    
+
+        private static Cliente CracionDeCliente(DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                Cliente cliente = new Cliente();
+                cliente.CodCliente = int.Parse(dataTable.Rows[0]["CodCliente"].ToString());
+                cliente.Nombre = dataTable.Rows[0]["Nombre"].ToString();
+                cliente.Apellido = dataTable.Rows[0]["Apellido"].ToString();
+                cliente.Edad = int.Parse(dataTable.Rows[0]["Edad"].ToString());
+                cliente.Email = dataTable.Rows[0]["Email"].ToString();
+                cliente.Domicilio = dataTable.Rows[0]["Domicilio"].ToString();
+                cliente.Telefono = int.Parse(dataTable.Rows[0]["Telefono"].ToString());
+                return cliente;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 
 }
