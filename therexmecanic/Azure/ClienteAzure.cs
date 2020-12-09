@@ -20,13 +20,56 @@ namespace therexmecanic.Azure
             
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-
                 var comando = AbrirConexionSqlClientes(sqlConnection);
                 var dataTable = LlenadoTabla(comando);
                 return Listarclientes(dataTable);
 
             }
             
+        }
+
+        public static Cliente ObtenerCliente(string nombreCliente)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                var query = $"select * from Cliente where Nombre = '{nombreCliente}'";
+                var comando = AbrirConexionSqlCliente(sqlConnection,query);
+                var dataTable = LlenadoTabla(comando);
+
+                return CracionDeCliente(dataTable);
+            }
+        }
+
+        public static Cliente ObtenerClienteID(int  codCliente)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                var query = $"select * from Cliente where CodCliente = '{codCliente}'";
+                var comando = AbrirConexionSqlCliente(sqlConnection, query);
+                var dataTable = LlenadoTabla(comando);
+
+                return CracionDeCliente(dataTable);
+            }
+        }
+
+        private static Cliente CracionDeCliente(DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                Cliente cliente = new Cliente();
+                cliente.CodCliente = int.Parse(dataTable.Rows[0]["CodCliente"].ToString());
+                cliente.Nombre = dataTable.Rows[0]["Nombre"].ToString();
+                cliente.Apellido = dataTable.Rows[0]["Apellido"].ToString();
+                cliente.Edad = int.Parse(dataTable.Rows[0]["Edad"].ToString());
+                cliente.Email = dataTable.Rows[0]["Email"].ToString();
+                cliente.Domicilio = dataTable.Rows[0]["Domicilio"].ToString();
+                cliente.Telefono = int.Parse(dataTable.Rows[0]["Telefono"].ToString());
+                return cliente;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static int AgregarClienteInstancia(Cliente cliente)
@@ -122,6 +165,13 @@ namespace therexmecanic.Azure
         {
             SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
             sqlCommand.CommandText = "select * from Cliente";
+            sqlConnection.Open();
+            return sqlCommand;
+        }
+
+        public static SqlCommand AbrirConexionSqlCliente(SqlConnection sqlConnection, string query)
+        {
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
             sqlConnection.Open();
             return sqlCommand;
         }

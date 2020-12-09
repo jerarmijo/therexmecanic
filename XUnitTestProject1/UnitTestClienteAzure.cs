@@ -24,6 +24,32 @@ namespace XUnitTestProject1
         }
 
         [Fact]
+        public void TestObtenerCliente()
+        {
+            //arrange
+            string nombreClientetest = "NATHAN";
+            int CodEsperado = 2;
+            //act
+            var clienteRetornados = ClienteAzure.ObtenerCliente(nombreClientetest);
+
+            //assert
+            Assert.Equal(CodEsperado,clienteRetornados.CodCliente);
+        }
+
+        [Fact]
+        public void TestObtenerClienteID()
+        {
+            //arrange
+            int codClienteTest = 1;
+            int CodEsperado = 1;
+            //act
+            var clienteRetornados = ClienteAzure.ObtenerClienteID(codClienteTest);
+
+            //assert
+            Assert.Equal(CodEsperado, clienteRetornados.CodCliente);
+        }
+
+        [Fact]
         public void TestAgregarClientesPorInstancia()
         {
             //arrange
